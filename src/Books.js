@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const myLibrary = [
   {
+    id: 1,
     title: 'Harry Potter and the Order of the Phoenix',
     author: 'J.K. Rowling',
     read: true,
@@ -10,6 +11,7 @@ const myLibrary = [
     rating: 4
   },
   {
+    id: 2,
     title: 'Goodnight Mr. Tom',
     author: 'Michelle Magorian',
     read: true,
@@ -17,6 +19,7 @@ const myLibrary = [
     rating: 5
   },
   {
+    id: 3,
     title: 'How to be an Antiracist',
     author: 'Ibram X. Kendi',
     read: false,
@@ -51,12 +54,39 @@ function Book(props) {
   )
 }
 
+const Booty = ({ children }) => {
+  const good = 'good booty'
+  return children(good, 'flwekfjlkfekjj')
+}
+
+const Parent = () => (
+  <Booty>
+    {(text, something) => <div>{text} {something}</div>}
+  </Booty>
+
+)
+
+
 function Books() {
+  const [library, updateLibrary] = useState(myLibrary)
+
+
+  const newBook = {
+    id: 4,
+    title: 'How to program',
+    author: 'sdfsd',
+    read: false,
+    pages: 320,
+    rating: 4
+  }
+
   return (
     <div>
-      {myLibrary.map((book, index) => {
-        return <Book book={book} key={index} />
+      <Parent />
+      {library.map((book) => {
+        return <Book book={book} key={book.id} />
       })}
+      <button onClick={() => updateLibrary([newBook, ...library])}>Add Book</button>
     </div>
   )
 }
