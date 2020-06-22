@@ -1,12 +1,12 @@
-import React from 'react';
-import Books from './Books';
+import React from 'react'
+import Page from './Books'
 
 function App() {
   return (
-    <div className="App">
-      <Books />
+    <div className='App'>
+      <Page />
     </div>
   )
 }
 
-export default App;
+export default App
