@@ -37,15 +37,12 @@ const myLibrary = [
     rating: 4,
   },
 ]
-let myLibraryCopy = myLibrary
 
 // TODO: add toggle for read status
-// TODO: add delete button for book
 // TODO: add edit button for book details
 function Book({ handleDelete, ...props }) {
-  // const [bookVisible, updateBookVisible] = useState(true)
-  const readOrUnread = () => (props.book.read ? 'Read' : 'Unread')
   const book = props.book
+  const readOrUnread = () => (book.read ? 'Read' : 'Unread')
   const [bookExists, setBookExists] = useState(true)
 
   return (
@@ -57,7 +54,7 @@ function Book({ handleDelete, ...props }) {
         <p>Rating: {book.rating}/5</p>
         <p>{readOrUnread()}</p>
         <button
-          onClick={(event) => handleDelete(myLibraryCopy, book, setBookExists)}
+          onClick={(event) => handleDelete(myLibrary, book, setBookExists)}
         >
           Delete
         </button>
@@ -67,15 +64,15 @@ function Book({ handleDelete, ...props }) {
   )
 }
 
-function Books() {
-  const handleDelete = (arr, book, setBookExists) => {
-    arr.filter((bookLoop) => bookLoop.id !== book.id)
+function Books({ library }) {
+  const handleDelete = (arr, currentBook, setBookExists) => {
+    arr.filter((book) => book.id !== currentBook.id)
     setBookExists(false)
   }
 
   return (
     <div>
-      {myLibraryCopy.map((book) => {
+      {library.map((book) => {
         return <Book book={book} key={book.id} handleDelete={handleDelete} />
       })}
     </div>
@@ -83,10 +80,10 @@ function Books() {
 }
 
 function Page() {
-  const [library, updateLibrary] = useState(myLibraryCopy)
+  const [library, updateLibrary] = useState(myLibrary)
   return (
     <>
-      <Books />
+      <Books library={library} />
       <NewBookForm updateLibrary={updateLibrary} library={library} />
     </>
   )

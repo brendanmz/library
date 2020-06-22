@@ -4,8 +4,6 @@ import * as Yup from 'yup'
 import { v4 as uuidv4 } from 'uuid'
 
 const NewBookForm = ({ updateLibrary, library }) => {
-  let newBook = {}
-
   return (
     <Formik
       initialValues={{
@@ -29,7 +27,8 @@ const NewBookForm = ({ updateLibrary, library }) => {
       })}
       onSubmit={(values, { setSubmitting }) => {
         // alert(JSON.stringify(values, null, 2))
-        newBook = values
+        let newBook = { ...values }
+        console.log(newBook)
         updateLibrary([newBook, ...library])
         setSubmitting(false)
       }}
